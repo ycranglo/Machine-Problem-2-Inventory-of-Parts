@@ -7,6 +7,10 @@ public class Transaction extends Inventory {
     createInventoryArray(partNumber, partDiscriptioString, price);
   }
 
+  public Transaction() {
+    
+  }
+
   // creating a record
   public void createInventoryArray(int partNumber, String partDiscriptioString, Float price) {
     records = new Inventory[1000];

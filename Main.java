@@ -6,12 +6,16 @@ public class Main {
   
   public static void main(String[] args) throws IOException {
     Inventory inv = new Inventory();
+    Transaction transacs = new Transaction();
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     System.out.println("Machine Problem#2-Inventory of Parts");
     System.out.println();
+    System.out.println();
     
     do {
+      transacs.displayAllRecords();
+      System.out.println();
       System.out.println("Select an operation :");
       System.out.println("A-add");
       System.out.println("C-Update");
