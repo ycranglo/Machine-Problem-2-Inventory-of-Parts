@@ -1,19 +1,18 @@
 
 public class Inventory {
+  //thsis are the variables that is used in Inventory class
   int partNumber;
   String partDiscription;
   Float price;
 
+  //this is the constructor for Inventory class
   public Inventory(int partNumber, String partDiscriptioString, Float price) {
-
     this.partDiscription = partDiscriptioString;
     this.partNumber = partNumber;
     this.price = price;
   };
-
-  public Inventory() {
-    
-  }
+  //this is the default constructor for Inventory class
+  public Inventory() {}
   
   // setter functions
   public void setPartNumber(int partNumber) {
@@ -40,18 +39,24 @@ public class Inventory {
     return price;
   }
 
+  //this is the function for checking the Part Description
   public Boolean inputValidatePartDiscription(String PartDiscription) {
     Boolean isValidate = false;
+    //this is the lenght require in the Part Description
     int length = 26;
     try {
       int count = 0;
+      // this for loop will count the characters in part Description
       for (int i = 0; i < PartDiscription.length(); i++) {
         if (Character.isLetter(PartDiscription.charAt(i))) {
           count++;
         }
         ;
       }
-      ;
+      /*
+       * checking if the Park Description is valid
+       * 
+       */
       if (count <= length) {
         isValidate = true;
       } else {
@@ -61,13 +66,13 @@ public class Inventory {
       // TODO: handle exception
       System.out.println("Please input a correct part discription");
     }
+    //returning the validation
     return isValidate;
   }
 
   public Boolean inputValidatePartNumber(int partNumber) {
     int maxLength = 10;
     Boolean isValidate = true;
-
     try {
       int count = 0;
       int tempNumber = partNumber;
@@ -81,12 +86,6 @@ public class Inventory {
         isValidate = false;
       }
 
-        //add this to the main menu
-      // // Additional validation for presence of characters
-      // if (String.valueOf(partNumber).matches(".*[a-zA-Z].*")) {
-      //   isValidate = false;
-      // }
-
     } catch (Exception e) {
       // TODO: handle exception
       System.out.println("Please input a correct part number");
@@ -95,12 +94,4 @@ public class Inventory {
 
     return isValidate;
   }
-
-  public static void main(String[] args) {
-  System.out.println("hei");
-  Inventory inv = new Inventory(0, null, null);
-
-  System.out.println(inv.inputValidatePartNumber(12000312));
-  System.out.println(inv.inputValidatePartDiscription(""));
-  };
 };

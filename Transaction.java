@@ -6,14 +6,13 @@ public class Transaction extends Inventory {
     super(partNumber, partDiscriptioString, price);
     createInventoryArray(partNumber, partDiscriptioString, price);
   }
-
-  public Transaction() {
+  public Transaction(){
     
   }
 
   // creating a record
   public void createInventoryArray(int partNumber, String partDiscriptioString, Float price) {
-    records = new Inventory[1000];
+    records = new Inventory[100000000];
     records[CountRecords] = new Inventory(partNumber, partDiscriptioString, price);
     CountRecords++;
   }
