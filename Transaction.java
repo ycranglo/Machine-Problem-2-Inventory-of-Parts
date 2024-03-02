@@ -2,64 +2,97 @@ public class Transaction extends Inventory {
   int CountRecords;
   Inventory[] records;
 
-  public Transaction(int partNumber, String partDiscriptioString, Float price) {
-    super(partNumber, partDiscriptioString, price);
-    createInventoryArray(partNumber, partDiscriptioString, price);
+  public Transaction(long partNumber, String partDiscriptioString, Float price, Boolean isDelete) {
+    super(partNumber, partDiscriptioString, price, isDelete);
+    createInventoryArray(partNumber, partDiscriptioString, price, isDelete);
+
   }
-  public Transaction(){}
+
+  public Transaction() {
+    records = new Inventory[100000];
+    CountRecords = 0;
+  }
 
   // creating a record
-  public void createInventoryArray(int partNumber, String partDiscriptioString, Float price) {
-    records = new Inventory[100000000];
-    records[CountRecords] = new Inventory(partNumber, partDiscriptioString, price);
+  public void createInventoryArray(long partNumber, String partDiscriptioString, Float price, Boolean isDelete) {
+    records[CountRecords] = new Inventory(partNumber, partDiscriptioString, price, isDelete);
     CountRecords++;
   }
 
+  // public Boolean checkDuplicatePartNum(long partNumber) {
+  //     Boolean isNotDuplicate = true;
+  //     if (records[CountRecords].partNumber != partNumber) {
+  //       isNotDuplicate = false;
+  //      }
+
+  //     return isNotDuplicate;
+  // }
+
   // updating the inventory
-  public void updateRecordPrice(int partNumber, Float newPrice) {
+  public Boolean updateRecordPrice(long partNumber, Float newPrice) {
+    Boolean isChange = false;
     try {
-      // looping tru the records
+      // looping through the records
       for (int i = 0; i < CountRecords; i++) {
-        // if the partnumber is find, it will be update
-        if (records[i].getPartNumber() == partNumber) {
+        // if the partnumber is found, it will be updated
+        if (records[i] != null && records[i].getPartNumber() == partNumber) {
           records[i].setPrice(newPrice);
-          System.out.println("Record updated successfully.");
-          return;
+          isChange = true;
         }
       }
-      // if not it will trow and error message
-      System.out.println("Record not found for partNumber: " + partNumber);
     } catch (Exception e) {
-      // TODO: handle exception
-      System.out.println("wrong input park number please try again");
+      System.out.println("Wrong input part number, please try again.");
     }
+    return isChange;
+  }
+
+  public Boolean updateRecordDescription(long partNumber, String NewpartDiscription) {
+    Boolean isChange = false;
+    try {
+      // looping through the records
+      for (int i = 0; i < CountRecords; i++) {
+        // if the partnumber is found, it will be updated
+        if (records[i] != null && records[i].getPartNumber() == partNumber) {
+          records[i].setpartDiscription(NewpartDiscription);
+          isChange = true;
+        }
+      }
+    } catch (Exception e) {
+      System.out.println("Wrong input part number, please try again.");
+    }
+    return isChange;
+  }
+
+  public Boolean findPartNum(long PartNum) {
+    Boolean isFind = false;
+    for (int i = 0; i < CountRecords; i++) {
+      if (records[i].partNumber == PartNum) {
+        isFind = true;
+      }
+    }
+    return isFind;
   }
   
-  public void updateRecordPrice(int partNumber, String NewpartDiscription) {
-    try {
-      // looping tru the records
-      for (int i = 0; i < CountRecords; i++) {
-        // if the partnumber is find, it will be update
-        if (records[i].getPartNumber() == partNumber) {
-          records[i].setpartDiscription(NewpartDiscription);
-          System.out.println("Record updated successfully.");
-          return;
-        }
+  public Boolean Delete(long PartNum) {
+    Boolean isFind = false;
+    for (int i = 0; i < CountRecords; i++) {
+      if (records[i].partNumber == PartNum) {
+        records[i].setDelete(true);
+        isFind = true;
       }
-      // if not it will trow and error message
-      System.out.println("Record not found for partNumber: " + partNumber);
-    } catch (Exception e) {
-      // TODO: handle exception
-      System.out.println("wrong input park number please try again");
     }
+    return isFind;
   }
 
   public void displayAllRecords() {
     System.out.println("Inventory Records");
     System.out.println();
-    System.out.println("PartNumber     | Description               | Price     ");
+    System.out.println("PartNumber     || Description               || Price     ");
     for (int i = 0; i < CountRecords; i++) {
-      System.out.println(records[i].partNumber+"     | "+ records[i].partDiscription+"| "+ records[i].price);
+      if (records[i] != null && records[i].isDelete!=true) {
+        System.out.println(
+            records[i].partNumber + "     || " + records[i].partDiscription + "          || $ " + records[i].price);
+      }
     }
   }
 }

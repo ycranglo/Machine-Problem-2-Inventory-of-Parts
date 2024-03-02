@@ -1,15 +1,17 @@
 
 public class Inventory {
   // thsis are the variables that is used in Inventory class
-  int partNumber;
+  long partNumber;
   String partDiscription;
   Float price;
+  Boolean isDelete;
 
   // this is the constructor for Inventory class
-  public Inventory(int partNumber, String partDiscriptioString, Float price) {
+  public Inventory(long partNumber, String partDiscriptioString, Float price,Boolean isDelete) {
     this.partDiscription = partDiscriptioString;
     this.partNumber = partNumber;
     this.price = price;
+    this.isDelete = isDelete;
   };
 
   // this is the default constructor for Inventory class
@@ -17,8 +19,12 @@ public class Inventory {
   }
 
   // setter functions
-  public void setPartNumber(int partNumber) {
+  public void setPartNumber(long partNumber) {
     this.partNumber = partNumber;
+  }
+  
+  public void setDelete(Boolean delete) {
+    this.isDelete = delete;
   }
 
   public void setpartDiscription(String partDiscriptionumber) {
@@ -30,7 +36,7 @@ public class Inventory {
   }
 
   // getter functions
-  public int getPartNumber() {
+  public long getPartNumber() {
     return partNumber;
   }
 
