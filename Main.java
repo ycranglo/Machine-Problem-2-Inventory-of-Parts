@@ -1,68 +1,132 @@
-import java.io.BufferedReader;
+
+/*
+ *ikaw nalang mag tuloy nito kent di ko alam yung format eh
+ * name:Escobañas, Kent Cedric F.
+ * name:Yocor, Angelo T.
+ *
+ */
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class Main {
-  static int partNum;
+  static String partNum;
+  static String input;
+  static String PartDescription;
+  static String price;
+
   public static void main(String[] args) throws IOException {
-    //this are the instance of the objects of Inventory and Transaction class
+    // this are the instance of the objects of Inventory and Transaction class
     Inventory inv = new Inventory();
-    Transaction transacs = new Transaction();
-    //creating a intance of BufferedReader
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    Transaction transact = new Transaction();
+    // creating a instance of scanner
+    Scanner scanner = new Scanner(System.in);
 
     System.out.println("Machine Problem#2-Inventory of Parts");
     System.out.println();
     System.out.println();
 
-
     do {
-      ///displaying the records of Inventory
-      transacs.displayAllRecords();
+      displayMenu();
+      System.out.print(">>");
+      input = scanner.nextLine();
       System.out.println();
-      //displaying the menu for the user
-      System.out.println("Select an operation :");
-      System.out.println("A-add");
-      System.out.println("C-Update");
-      System.out.println("D-Delete");
-      System.out.println("X-Exit");
-      String input = reader.readLine();
-
-      //a 
-      if (input == "A" || input == "a") {
-        Boolean isValidate = false;
-        System.out.println("Enter a Part Number");
-        partNum = Integer.parseInt(reader.readLine());
-        /*
-         * creating a variable that holds the result boolean in functions call
-         * calling the function in Inventory class to check if the part number that the user
-         * inputted is exceed to 10
-         */
-        Boolean isValid =inv.inputValidatePartNumber(partNum);
-        /*
-         * Additional validation for presence of characters
-         * Checking the input user if it has a character
-         */
-        if (String.valueOf(partNum).matches(".*[a-zA-Z].*") || isValid) {
-          isValidate = true;
-        } else {
-          isValidate = false;
-        }
-        /*
-         * if the if statement is satisfied, the while block will work until  certain condition
-         * satisfied0
-         */
-        while (isValidate) {
-          System.out.println("Enter a Part Number");
-          partNum = Integer.parseInt(reader.readLine());
-          // we use a regex to check the inout
-          if (String.valueOf(partNum).matches(".*[a-zA-Z].*") || isValid) {
-            isValidate = true;
-          } else {
-            isValidate = false;
-          }
-        }
+      while (checkChoice(input)) {
+        System.out.println("Please Enter a Valid input :");
+        System.out.print(">>");
+        input = scanner.nextLine();
+        System.out.println();
       }
-    } while (true);
+
+      if (input.equalsIgnoreCase("A")) {
+        System.out.println("Part Number must only contain 10 digits");
+        System.out.println("Enter a Part Number :");
+        System.out.print(">>");
+        partNum = scanner.nextLine();
+        System.out.println();
+          // Additional validation for presence of characters
+          while (inv.inputValidatePartNumber(partNum)) {
+            displayErrorParkNum();
+            System.out.print(">>");
+            partNum = scanner.nextLine();
+            System.out.println();
+          }
+          System.out.println();
+          System.out.println();
+          System.out.println("Part Description must only contain 26 character");
+          System.out.println("Enter a Part Description :");
+          System.out.print(">>");
+          PartDescription = scanner.nextLine();
+          System.out.println();
+          
+          while (inv.inputValidatePartDiscription(PartDescription)) {
+            displayErrorParkDescription();
+            System.out.print(">>");
+            PartDescription = scanner.nextLine();
+            System.out.println();
+          }
+          System.out.println();
+          System.out.println();
+          System.out.println("Price must only contain numbers");
+          System.out.println("Enter a Part Description :");
+          System.out.print(">>");
+          price = scanner.nextLine();
+          System.out.println();
+
+          while (inv.inputValidatePrice(price)) {
+            displayErrorParkDescription();
+            System.out.print(">>");
+            price = scanner.nextLine();
+            System.out.println();
+          }
+          float Price = Float.parseFloat(price);
+          int ParkNum = Integer.parseInt(partNum);
+          transact.createInventoryArray(ParkNum, PartDescription, Price);
+          System.out.println("Record successfully created!!");
+          System.out.println();
+          transact.displayAllRecords();
+          System.out.println();
+      }else if(input.equalsIgnoreCase("c")){
+        
+      }
+
+    } while (!input.equalsIgnoreCase("X"));
+    System.out.println("EXITED THE PROGRAM...");
+    System.out.println("THANK YOU FOR USING...");
+  }
+
+  public static Boolean checkChoice(String input) {
+    Boolean isValid = true;
+    if (input.equalsIgnoreCase("a") || input.equalsIgnoreCase("c") || input.equalsIgnoreCase("d") || input
+        .equalsIgnoreCase("x")) {
+      isValid = false;
+    }
+    return isValid;
+  }
+
+  public static void displayErrorParkNum() {
+    System.out.println("Error Message: Invalid input. Enter a valid Part Number ");
+    System.out.println("Part Number must only contain 10 digits");
+    System.out.println("Enter again a Part Number :");
+  }
+
+  public static void displayErrorParkDescription() {
+    System.out.println("Error Message: Invalid input. Enter a valid Part Description");
+    System.out.println("Part Description must only contain 26 character");
+    System.out.println("Enter a Part Description :");
+  }
+  
+  public static void displayErrorPrice() {
+    System.out.println("Error Message: Invalid input. Enter a valid Price");
+    System.out.println("Price must only contain numbers");
+    System.out.println("Enter a Price :");
+  }
+
+  public static void displayMenu() {
+    System.out.println();
+    System.out.println("Select an operation :");
+    System.out.println("A-add");
+    System.out.println("C-Change");
+    System.out.println("D-Delete");
+    System.out.println("X-Exit");
   }
 }

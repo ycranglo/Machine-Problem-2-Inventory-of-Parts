@@ -6,9 +6,7 @@ public class Transaction extends Inventory {
     super(partNumber, partDiscriptioString, price);
     createInventoryArray(partNumber, partDiscriptioString, price);
   }
-  public Transaction(){
-    
-  }
+  public Transaction(){}
 
   // creating a record
   public void createInventoryArray(int partNumber, String partDiscriptioString, Float price) {
@@ -57,10 +55,11 @@ public class Transaction extends Inventory {
   }
 
   public void displayAllRecords() {
+    System.out.println("Inventory Records");
+    System.out.println();
+    System.out.println("PartNumber     | Description               | Price     ");
     for (int i = 0; i < CountRecords; i++) {
-      
-      System.out.println("PartNumber     | Description     | Price     |");
-      System.out.println(records[i].partNumber+"   "+ records[i].partDiscription+"     "+ records[i].price);
+      System.out.println(records[i].partNumber+"     | "+ records[i].partDiscription+"| "+ records[i].price);
     }
   }
 }
