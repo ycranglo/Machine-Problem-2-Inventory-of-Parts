@@ -66,7 +66,7 @@ public class Transaction extends Inventory {
   public Boolean findPartNum(long PartNum) {
     Boolean isFind = false;
     for (int i = 0; i < CountRecords; i++) {
-      if (records[i].partNumber == PartNum) {
+      if (records[i].partNumber == PartNum && records[i].isDelete ==false) {
         isFind = true;
       }
     }

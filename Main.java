@@ -14,6 +14,7 @@ public class Main {
   static String PartDescription;
   static String price;
   static long findPartNum;
+  static Long ParkNum2;
 
   public static void main(String[] args) throws IOException {
     // this are the instance of the objects of Inventory and Transaction class
@@ -42,12 +43,14 @@ public class Main {
         System.out.println("Enter a Part Number :");
         System.out.print(">>");
         partNum = scanner.nextLine();
+        ParkNum2 = Long.parseLong(partNum);
         System.out.println();
         // Additional validation for presence of characters
-        while (inv.inputValidatePartNumber(partNum)) {
+        while (inv.inputValidatePartNumber(partNum) || transact.findPartNum(ParkNum2)) {
           displayErrorPartNum();
           System.out.print(">>");
           partNum = scanner.nextLine();
+          ParkNum2 = Long.parseLong(partNum);
           System.out.println();
         }
         spaces(2);
@@ -78,7 +81,7 @@ public class Main {
         }
         float Price = Float.parseFloat(price);
         Long ParkNum = Long.parseLong(partNum);
-        transact.createInventoryArray(ParkNum, PartDescription, Price,false);
+        transact.createInventoryArray(ParkNum, PartDescription, Price, false);
         System.out.println("Record successfully created!!");
         System.out.println();
         System.out.println(transact.CountRecords);
@@ -142,7 +145,7 @@ public class Main {
             System.out.println("something went wrong...");
           }
           System.out.println();
-          
+
         } else if (choice.equalsIgnoreCase("d")) {
           System.out.println("Part Description must only contain 26 character");
           System.out.println("Enter a Part Description :");
@@ -211,10 +214,10 @@ public class Main {
     }
     return isValid;
   }
-  
+
   public static Boolean checkChoiceChange(String input) {
     Boolean isValid = true;
-    if (input.equalsIgnoreCase("p")  || input
+    if (input.equalsIgnoreCase("p") || input
         .equalsIgnoreCase("d")) {
       isValid = false;
     }
