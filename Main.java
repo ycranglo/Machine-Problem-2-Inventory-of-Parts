@@ -9,10 +9,10 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-  static String partNum ="0";
-  static String input = "0";
+  static String partNum;
+  static String input;
   static String PartDescription;
-  static String price = "0";
+  static String price;
   static long findPartNum;
   static long ParkNum2;
 
