@@ -9,12 +9,12 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-  static String partNum;
-  static String input;
-  static String PartDescription;
-  static String price;
+  static String partNum =" ";
+  static String input = " ";
+  static String PartDescription =" ";
+  static String price = " ";
   static long findPartNum;
-  static Long ParkNum2;
+  static long ParkNum2;
 
   public static void main(String[] args) throws IOException {
     // this are the instance of the objects of Inventory and Transaction class

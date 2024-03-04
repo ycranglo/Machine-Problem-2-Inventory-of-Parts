@@ -7,7 +7,7 @@ public class Transaction extends Inventory {
     createInventoryArray(partNumber, partDiscriptioString, price, isDelete);
 
   }
-
+ 
   public Transaction() {
     records = new Inventory[100000];
     CountRecords = 0;
